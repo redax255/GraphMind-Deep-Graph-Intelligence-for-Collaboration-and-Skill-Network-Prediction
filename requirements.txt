@@ -1,0 +1,85 @@
+# ============================================
+# INSTALLATION EN 3 ÉTAPES POUR WINDOWS
+# ============================================
+# 
+# ÉTAPE 1 : pip install torch torchvision torchaudio
+# ÉTAPE 2 : pip install torch-scatter torch-sparse -f https://data.pyg.org/whl/torch-2.1.0+cpu.html
+# ÉTAPE 3 : pip install -r requirements_fixed.txt
+#
+# ============================================
+
+# ============================================
+# FASTAPI & SERVER
+# ============================================
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+python-multipart==0.0.6
+
+# ============================================
+# DATABASE
+# ============================================
+pymongo==4.6.0
+motor==3.3.2
+
+# ============================================
+# DATA MANIPULATION
+# ============================================
+pandas==2.1.3
+numpy==1.26.2
+
+# ============================================
+# GRAPH PROCESSING
+# ============================================
+# Version compatible avec node2vec (< 3.0)
+networkx==2.8.8
+
+# ============================================
+# MACHINE LEARNING
+# ============================================
+scikit-learn==1.3.2
+xgboost==2.0.2
+
+# ============================================
+# GRAPH MACHINE LEARNING
+# ============================================
+# PyTorch déjà installé à l'étape 1
+# torch-scatter et torch-sparse déjà installés à l'étape 2
+
+# PyTorch Geometric
+torch-geometric==2.4.0
+
+# node2vec pour embeddings
+node2vec==0.4.6
+gensim==4.3.2
+
+# ============================================
+# NLP & TEXT PROCESSING (OPTIONNEL)
+# ============================================
+spacy==3.7.2
+# Fuzzy matching pour normalisation
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.23.0
+
+# ============================================
+# VISUALISATION
+# ============================================
+matplotlib==3.8.2
+seaborn==0.13.0
+plotly==5.18.0
+
+# Réduction de dimensionnalité
+umap-learn==0.5.5
+
+# ============================================
+# UTILITIES
+# ============================================
+python-dotenv==1.0.0
+tqdm==4.66.1
+joblib==1.3.2
+
+# ============================================
+# DATE PARSING
+# ============================================
+python-dateutil==2.8.2
