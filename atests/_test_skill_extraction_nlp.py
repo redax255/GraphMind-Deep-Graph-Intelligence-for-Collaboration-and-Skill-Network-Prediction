@@ -9,7 +9,7 @@ import re
 from pathlib import Path
 from typing import List, Tuple
 
-sys.path.append(str(Path(__file__).parent))
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from app.services.database import MongoDBClient
 from app.utils.skill_extractor import SkillExtractor

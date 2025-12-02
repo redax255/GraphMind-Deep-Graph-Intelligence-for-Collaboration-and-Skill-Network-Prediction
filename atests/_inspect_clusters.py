@@ -5,7 +5,7 @@ Script pour inspecter les clusters formés et valider leur qualité.
 import sys
 from pathlib import Path
 
-sys.path.append(str(Path(__file__).parent))
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from app.services.database import MongoDBClient
 from app.utils.company_normalizer_ml import (

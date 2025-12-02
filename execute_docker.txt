@@ -1,0 +1,55 @@
+🚀 COMMANDES DOCKER
+1. Build de l'image
+
+docker build -t graphmind-api:latest .
+
+
+2. Lancer avec Docker Compose
+bash# Démarrer tous les services
+docker-compose up -d
+
+# Vérifier les logs
+docker-compose logs -f graphmind-api
+
+# Vérifier le statut
+docker-compose ps
+
+
+
+3. Arrêter les services
+bashdocker-compose down
+
+
+
+4. Supprimer tout (services + volumes)
+bashdocker-compose down -v
+
+
+
+🧪 TESTS APRÈS DÉPLOIEMENT
+1. Vérifier Neo4j
+bash# Navigateur
+http://localhost:7474
+
+# Credentials
+Username: neo4j
+Password: your_password
+
+2. Vérifier MongoDB
+bash# CLI
+docker exec -it graphmind-mongodb mongosh -u admin -p your_password
+
+# Dans mongosh
+show dbs
+use linkedin_db
+show collections
+
+3. Vérifier API
+bash# Health check
+curl http://localhost:8000/health
+
+# Stats
+curl http://localhost:8000/stats
+
+# Swagger
+http://localhost:8000/docs

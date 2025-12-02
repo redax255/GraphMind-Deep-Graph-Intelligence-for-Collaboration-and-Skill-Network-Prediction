@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 from collections import Counter
 
-sys.path.append(str(Path(__file__).parent))
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from app.services.database import MongoDBClient
 from app.utils.school_normalizer_ml import SchoolNormalizerML

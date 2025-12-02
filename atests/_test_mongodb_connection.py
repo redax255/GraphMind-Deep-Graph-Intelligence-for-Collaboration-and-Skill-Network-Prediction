@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 
 # Ajouter le dossier parent au path pour importer les modules
-sys.path.append(str(Path(__file__).parent))
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from app.services.database import MongoDBClient
 from app.config import settings

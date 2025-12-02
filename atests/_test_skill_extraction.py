@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 # Ajouter le dossier parent au path
-sys.path.append(str(Path(__file__).parent))
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from app.services.database import MongoDBClient
 from app.utils.text_processing import extract_skills_from_profile, get_skills_statistics

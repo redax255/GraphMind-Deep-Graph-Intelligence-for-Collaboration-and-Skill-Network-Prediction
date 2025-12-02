@@ -53,6 +53,9 @@ torch-geometric==2.4.0
 # node2vec pour embeddings
 node2vec==0.4.6
 gensim==4.3.2
+scipy==1.10.1
+
+python-louvain==0.16
 
 # ============================================
 # NLP & TEXT PROCESSING (OPTIONNEL)
@@ -83,3 +86,9 @@ joblib==1.3.2
 # DATE PARSING
 # ============================================
 python-dateutil==2.8.2
+
+
+# ============================================
+# Neo4j Driver
+# ============================================
+neo4j==5.14.0

@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # ============================================
+  # NEO4J DATABASE
+  # ============================================
+  neo4j:
+    image: neo4j:5.9.0
+    container_name: graphmind-neo4j
+    ports:
+      - "7474:7474"  # HTTP
+      - "7687:7687"  # Bolt
+    environment:
+      - NEO4J_AUTH=neo4j/your_password  # ← MODIFIER
+      - NEO4J_dbms_memory_pagecache_size=1G
+      - NEO4J_dbms_memory_heap_initial__size=1G
+      - NEO4J_dbms_memory_heap_max__size=2G
+    volumes:
+      - neo4j-data:/data
+      - neo4j-logs:/logs
+      - neo4j-import:/var/lib/neo4j/import
+    networks:
+      - graphmind-network
+    restart: unless-stopped
+
+  # ============================================
+  # MONGODB DATABASE
+  # ============================================
+  mongodb:
+    image: mongo:7.0
+    container_name: graphmind-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=your_password  # ← MODIFIER
+      - MONGO_INITDB_DATABASE=linkedin_db
+    volumes:
+      - mongodb-data:/data/db
+      - mongodb-config:/data/configdb
+    networks:
+      - graphmind-network
+    restart: unless-stopped
+
+  # ============================================
+  # GRAPHMIND API
+  # ============================================
+  graphmind-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: graphmind-api
+    ports:
+      - "8000:8000"
+    environment:
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=your_password  # ← MODIFIER
+      - MONGO_URI=mongodb://admin:your_password@mongodb:27017  # ← MODIFIER
+      - MONGO_DB=linkedin_db
+    volumes:
+      - ./data:/app/data
+      - ./app:/app/app
+    depends_on:
+      - neo4j
+      - mongodb
+    networks:
+      - graphmind-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+# ============================================
+# NETWORKS
+# ============================================
+networks:
+  graphmind-network:
+    driver: bridge
+
+# ============================================
+# VOLUMES
+# ============================================
+volumes:
+  neo4j-data:
+    driver: local
+  neo4j-logs:
+    driver: local
+  neo4j-import:
+    driver: local
+  mongodb-data:
+    driver: local
+  mongodb-config:
+    driver: local

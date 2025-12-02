@@ -1,10 +1,11 @@
 # config.py
 """
-Configuration centrale de l'application Graph ML Morocco.
+Configuration centrale de l'application GraphMind.
 
 Ce module gère :
 - Chargement des variables d'environnement (.env)
 - Configuration MongoDB
+- Configuration Neo4j
 - Chemins des fichiers et dossiers
 - Paramètres Machine Learning
 """
@@ -32,13 +33,37 @@ class Settings(BaseSettings):
     )
     
     mongodb_db_name: str = Field(
-        default="tech_ecosystem_morocco",
+        default="linkedin_scraper",
         description="Nom de la base de données"
     )
     
     mongodb_collection_profiles: str = Field(
-        default="profiles",
-        description="Nom de la collection des profils"
+        default="linkedin_profiles",
+        description="Nom de la collection des profils bruts"
+    )
+    
+    mongodb_collection_enriched: str = Field(
+        default="linkedin_profiles_enriched",
+        description="Nom de la collection des profils enrichis"
+    )
+    
+    # ============================================
+    # NEO4J CONFIGURATION
+    # ============================================
+    
+    neo4j_uri: str = Field(
+        default="bolt://localhost:7687",
+        description="URI de connexion Neo4j"
+    )
+    
+    neo4j_user: str = Field(
+        default="neo4j",
+        description="Nom d'utilisateur Neo4j"
+    )
+    
+    neo4j_password: str = Field(
+        default="Redax@255",
+        description="Mot de passe Neo4j"
     )
     
     # ============================================
@@ -90,6 +115,44 @@ class Settings(BaseSettings):
     )
     
     # ============================================
+    # SENTENCE-BERT CONFIGURATION
+    # ============================================
+    
+    sentence_bert_model: str = Field(
+        default="paraphrase-multilingual-MiniLM-L12-v2",
+        description="Modèle Sentence-BERT pour embeddings"
+    )
+    
+    embedding_dimension: int = Field(
+        default=384,
+        description="Dimension des embeddings Sentence-BERT"
+    )
+    
+    # ============================================
+    # DBSCAN CONFIGURATION
+    # ============================================
+    
+    dbscan_eps: float = Field(
+        default=0.03,
+        description="DBSCAN eps (similarité 97%+)"
+    )
+    
+    dbscan_min_samples: int = Field(
+        default=2,
+        description="DBSCAN min_samples"
+    )
+    
+    cluster_coherence_threshold: float = Field(
+        default=0.90,
+        description="Seuil de cohérence des clusters"
+    )
+    
+    cluster_min_similarity: float = Field(
+        default=0.75,
+        description="Similarité minimale dans un cluster"
+    )
+    
+    # ============================================
     # FILE PATHS
     # ============================================
     
@@ -106,6 +169,16 @@ class Settings(BaseSettings):
     processed_data_dir: Path = Field(
         default=Path("./data/processed"),
         description="Dossier des données traitées"
+    )
+    
+    cache_dir: Path = Field(
+        default=Path("./data/cache"),
+        description="Dossier du cache"
+    )
+    
+    reports_dir: Path = Field(
+        default=Path("./data/reports"),
+        description="Dossier des rapports"
     )
     
     # ============================================
@@ -142,6 +215,26 @@ class Settings(BaseSettings):
         """Chemin du fichier JSON des profils nettoyés"""
         return self.processed_data_dir / "profiles_cleaned.json"
     
+    @property
+    def company_embeddings_cache(self) -> Path:
+        """Chemin du cache des embeddings entreprises"""
+        return self.cache_dir / "company_embeddings.pkl"
+    
+    @property
+    def company_normalizations_cache(self) -> Path:
+        """Chemin du cache des normalisations entreprises"""
+        return self.cache_dir / "company_normalizations.json"
+    
+    @property
+    def school_embeddings_cache(self) -> Path:
+        """Chemin du cache des embeddings écoles"""
+        return self.cache_dir / "school_embeddings.pkl"
+    
+    @property
+    def school_normalizations_cache(self) -> Path:
+        """Chemin du cache des normalisations écoles"""
+        return self.cache_dir / "school_normalizations.json"
+    
     def create_directories(self) -> None:
         """
         Crée tous les dossiers nécessaires s'ils n'existent pas.
@@ -151,6 +244,8 @@ class Settings(BaseSettings):
         self.data_dir.mkdir(parents=True, exist_ok=True)
         self.models_dir.mkdir(parents=True, exist_ok=True)
         self.processed_data_dir.mkdir(parents=True, exist_ok=True)
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+        self.reports_dir.mkdir(parents=True, exist_ok=True)
     
     def is_production(self) -> bool:
         """Vérifie si on est en environnement de production"""

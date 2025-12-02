@@ -6,7 +6,7 @@ Lance l'enrichissement sur TOUS les profils.
 import sys
 from pathlib import Path
 
-sys.path.append(str(Path(__file__).parent))
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from app.utils.enrichment_pipeline import EnrichmentPipeline
 
