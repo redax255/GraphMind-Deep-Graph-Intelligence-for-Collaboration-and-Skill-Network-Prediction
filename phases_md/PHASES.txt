@@ -1,4 +1,4 @@
-# PARTIE 1/6 - ROADMAP PROJET GRAPH ML
+﻿# PARTIE 1/6 - ROADMAP PROJET GRAPH ML
 
 ```markdown
 # 🎯 ROADMAP - Projet Graph ML sur l'Écosystème Tech Marocain
@@ -262,9 +262,9 @@ Le champ `skills[]` est souvent vide (60-80% des profils). **C'est NORMAL**.
 ```json
 {
   "_id": ObjectId("68f8e6357fbe3e39a4499ecc"),
-  "linkedinUrl": "https://www.linkedin.com/in/belkacemlahouel",
+  "linkedinUrl": "https://www.linkedin.com/in/belkacemExemple",
   "first_name": "Belkacem",
-  "last_name": "Lahouel",
+  "last_name": "Exemple",
   "position": "Data & Full Stack Engineer @ Criteo",
   "location": "France",
   "resume": "✅ I am a data engineer with experience on petabytes pipelines.\n" +

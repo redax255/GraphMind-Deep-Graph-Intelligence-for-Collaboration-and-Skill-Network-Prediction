@@ -1,4 +1,4 @@
-# PHASE 3 - GRAPH CONSTRUCTION ✅
+﻿# PHASE 3 - GRAPH CONSTRUCTION ✅
 
 **Statut** : **TERMINÉE À 100%** 🎉  
 **Durée totale** : 3 jours  
@@ -335,7 +335,7 @@ ORDER BY s.similarity_score DESC
 LIMIT 20
 
 // 7. Réseau complet d'une personne
-MATCH (p:Person {name: "Belkacem Lahouel"})-[r]-(n)
+MATCH (p:Person {name: "Prenom Exemple"})-[r]-(n)
 RETURN p, r, n
 
 // 8. Chemin entre 2 personnes
@@ -355,7 +355,7 @@ CALL db.schema.visualization()
 ### **1. Recommandation de recrutement**
 ```cypher
 // Trouver des candidats similaires à notre meilleur employé
-MATCH (reference:Person {name: "Belkacem Lahouel"})
+MATCH (reference:Person {name: "Prenom Exemple"})
 MATCH (reference)-[s:SIMILAR_TO]->(candidate:Person)
 WHERE s.similarity_score > 0.6
   AND candidate.position CONTAINS "Data"

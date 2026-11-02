@@ -1,4 +1,4 @@
-"""
+﻿"""
 Script pour créer les relations inférées dans le graphe Neo4j
 
 Relations créées :
@@ -232,7 +232,7 @@ def main():
         ORDER BY count DESC
         
         // Réseau complet d'une personne
-        MATCH (p:Person {name: "Belkacem Lahouel"})-[r]-(n)
+        MATCH (p:Person {name: "Prenom Exemple"})-[r]-(n)
         RETURN p, r, n
         """)
         print("="*80 + "\n")
